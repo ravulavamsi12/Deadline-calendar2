@@ -1,0 +1,52 @@
+{
+  "148c299b-0925-4a73-82ee-7ae8e0dcfcb3": {
+    "connectionInstanceId": "/providers/microsoft.powerapps/apis/shared_sharepointonline/connections/09eb5e817d0b4747b364cc53c724db59",
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1487/1.0.1487.2472/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://maargasystems007.sharepoint.com/sites/ZurichCalendarClassical": {
+        "dataSources": {
+          "TestCalendar": {
+            "tableName": "b23c8fa8-a359-497d-9ea4-8b09d460a231"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "TestCalendar"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "148c299b-0925-4a73-82ee-7ae8e0dcfcb3"
+  },
+  "9422327d-c6f4-4f03-a171-6cd49a1a1790": {
+    "connectionInstanceId": "/providers/microsoft.powerapps/apis/shared_office365/connections/shared-office365-57ffa11d-8b4a-4cc7-b756-5de6-c3bd75c0",
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1503/1.0.1503.2513/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "9422327d-c6f4-4f03-a171-6cd49a1a1790"
+  }
+}

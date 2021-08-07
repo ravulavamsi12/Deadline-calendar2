@@ -1,0 +1,103 @@
+"'View Blckout Subject' As screen":
+
+    Rectangle3_1 As rectangle:
+        Width: =1229
+        ZIndex: =1
+
+    Label5_1 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =52
+        Size: =30
+        Text: ="View Blackout Subject"
+        Width: =508
+        X: =411
+        Y: =18
+        ZIndex: =2
+
+    "Gallery2_1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        Height: =570
+        Items: ='Blackout Subject'
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =Min(160, Self.Height - 60)
+        Width: =1229
+        Y: =198
+        ZIndex: =3
+
+        Separator2_1 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Label6_1 As label:
+            Height: =62
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.SubjectName
+            Width: =355
+            X: =48
+            Y: =19
+            ZIndex: =6
+
+        Label7_1 As label:
+            Height: =63
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Description
+            Width: =648
+            X: =418
+            Y: =19
+            ZIndex: =7
+
+        Icon11_1 As icon.Edit:
+            Height: =62
+            Icon: =Icon.Edit
+            OnSelect: =Select(Parent);Set(blacksubjectupdate,ThisItem);Navigate('Update Blackout Subject');
+            Width: =46
+            X: =1066
+            Y: =19
+            ZIndex: =10
+
+    Rectangle9_1 As rectangle:
+        Fill: =RGBA(186, 202, 226, 1)
+        Height: =102
+        Width: =1229
+        Y: =96
+        ZIndex: =7
+
+    Label30_1 As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =20
+        Text: ="Subject"
+        Width: =282
+        X: =56
+        Y: =135
+        ZIndex: =8
+
+    Label31_1 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =38
+        Size: =20
+        Text: ="Description"
+        Width: =210
+        X: =443
+        Y: =135
+        ZIndex: =9
+
+    Icon19 As icon.CancelBadge:
+        Icon: =Icon.CancelBadge
+        OnSelect: =Navigate('Week Grid');
+        X: =1152
+        Y: =12
+        ZIndex: =10
+
+    Button12 As button:
+        Fill: =RGBA(168, 0, 0, 1)
+        Height: =46
+        OnSelect: =Navigate('New Blackout Subject');
+        Text: ="New Blackout Subject"
+        Width: =242
+        X: =19
+        Y: =24
+        ZIndex: =11
+

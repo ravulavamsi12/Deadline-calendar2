@@ -1,0 +1,47 @@
+"'Delete Screen' As screen":
+
+    Rectangle22 As rectangle:
+        Height: =96
+        Width: =1229
+        ZIndex: =1
+
+    Label20 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =51
+        Size: =30
+        Text: ="Confirmation"
+        Width: =333
+        X: =501
+        Y: =22
+        ZIndex: =2
+
+    Circle3 As circle:
+        Fill: =RGBA(184, 0, 0, 1)
+        X: =584
+        Y: =246
+        ZIndex: =4
+
+    Icon8 As icon.ArrowLeft:
+        Icon: =Icon.ArrowLeft
+        OnSelect: =Navigate('Month Grid')
+        X: =15
+        Y: =16
+        ZIndex: =5
+
+    Icon9 As icon.Check:
+        Icon: =Icon.Check
+        X: =602
+        Y: =264
+        ZIndex: =6
+
+    Label21 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Height: =115
+        Size: =20
+        Text: ="Deleted Successfully"
+        Width: =618
+        X: =325
+        Y: =389
+        ZIndex: =7
+

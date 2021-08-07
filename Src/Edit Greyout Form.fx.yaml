@@ -1,0 +1,619 @@
+"'Edit Greyout Form' As screen":
+    ImagePosition: =ImagePosition.Center
+    OnVisible: |+
+        =ClearCollect(newblackoutsub,{Result:"Select Subject"});
+        Collect(newblackoutsub,Distinct('Blackout Subject',SubjectName));
+        ClearCollect(newblackcategory,{Result:"Select Category"});
+        Collect(newblackcategory,Distinct('Blackout Category','Category Name'));
+        
+
+    Rectangle1_11 As rectangle:
+        Height: =92
+        Width: =1228
+        ZIndex: =1
+
+    Label1_8 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =48
+        Size: =30
+        Text: ="Update Greyout Date"
+        Width: =498
+        X: =382
+        Y: =22
+        ZIndex: =2
+
+    Dropdown12_8 As dropdown:
+        Default: =itemtoupdate.SubjectName
+        Items: =Greyoutcollection
+        Width: =238
+        X: =144
+        Y: =147
+        ZIndex: =4
+
+    Label5_8 As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Subject"
+        X: =27
+        Y: =147
+        ZIndex: =5
+
+    Button8_14 As button:
+        Fill: =RGBA(168, 0, 0, 1)
+        OnSelect: |-
+            =Patch(ITBlackoutCalendar,itemtoupdate,{SubjectName:Dropdown12_8.Selected.SubjectName,Category:Dropdown1_8.Selected.CategoryName,'Blackout or Greyout or IT Event':"Blackout Event",Description:TextInput1_4.Text},Form1_11.Updates);ResetForm(Form1_11);Reset(Dropdown1_8);Reset(Dropdown12_8);Reset(TextInput1_4);Navigate('Month Grid');
+        Text: ="Update"
+        X: =17
+        Y: =30
+        ZIndex: =8
+
+    Label3_11 As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Category"
+        X: =666
+        Y: =147
+        ZIndex: =13
+
+    Dropdown1_8 As dropdown:
+        Default: =itemtoupdate.Category
+        Items: =colcategory
+        Width: =238
+        X: =816
+        Y: =147
+        ZIndex: =14
+
+    Form1_11 As form:
+        DataSource: =ITBlackoutCalendar
+        Height: =553
+        Item: =itemtoupdate
+        NumberOfColumns: =2
+        Width: =1229
+        Y: =211
+        ZIndex: =31
+
+        "'Start Time_DataCard2_8' As typedDataCard.dateTimeEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="StartTime"
+            Default: =ThisItem.'Start Time'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Start Time"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =77
+            Required: =false
+            Update: |+
+                =DateValue3_8.SelectedDate + Time(Value(HourValue3_8.Selected.Value), Value(MinuteValue3_8.Selected.Value), 0)
+                
+                
+                
+                
+            Width: =614
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey14_8 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Size: =15
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =18
+                Y: =47
+                ZIndex: =1
+
+            DateValue3_8 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =238
+                X: =143
+                Y: =47
+                ZIndex: =2
+
+            HourValue3_8 As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Hour(Parent.Default),"00")
+                DisplayMode: =If(Checkbox1_8.Value,Disabled,Edit)
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =64
+                X: =406
+                Y: =47
+                ZIndex: =3
+
+            Separator4_8 As label:
+                Align: =Align.Center
+                FontWeight: =FontWeight.Bold
+                Height: =HourValue3_8.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: |-
+                    =":"
+                Width: =10
+                Wrap: =false
+                X: =HourValue3_8.X + HourValue3_8.Width
+                Y: =HourValue3_8.Y
+                ZIndex: =4
+
+            MinuteValue3_8 As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Minute(Parent.Default),"00")
+                DisplayMode: =If(Checkbox1_8.Value,Disabled,Edit)
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =64
+                X: =480
+                Y: =47
+                ZIndex: =5
+
+            ErrorMessage13_8 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =HourValue3_8.Y + HourValue3_8.Height
+                ZIndex: =6
+
+            StarVisible13_8 As label:
+                Align: =Align.Center
+                Height: =DataCardKey14_8.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey14_8.Y
+                ZIndex: =7
+
+        "'End Time_DataCard2_8' As typedDataCard.dateTimeEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="EndTime"
+            Default: =ThisItem.'End Time'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="End Time"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: |+
+                =DateValue4_8.SelectedDate + Time(Value(HourValue4_8.Selected.Value), Value(MinuteValue4_8.Selected.Value), 0)
+                
+                
+                
+                
+            Width: =614
+            X: =1
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey15_8 As label:
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =37
+                Size: =15
+                Text: =Parent.DisplayName
+                Width: =538
+                Wrap: =false
+                X: =51
+                Y: =40
+                ZIndex: =1
+
+            DateValue4_8 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =238
+                X: =201
+                Y: =38
+                ZIndex: =2
+
+            HourValue4_8 As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Hour(Parent.Default),"00")
+                DisplayMode: =If(Checkbox1_8.Value,Disabled,Edit)
+                Height: =DateValue4_8.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =64
+                X: =458
+                Y: =37
+                ZIndex: =3
+
+            Separator5_8 As label:
+                Align: =Align.Center
+                FontWeight: =FontWeight.Bold
+                Height: =HourValue4_8.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: |-
+                    =":"
+                Width: =10
+                Wrap: =false
+                X: =HourValue4_8.X + HourValue4_8.Width
+                Y: =HourValue4_8.Y
+                ZIndex: =4
+
+            MinuteValue4_8 As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Minute(Parent.Default),"00")
+                DisplayMode: =If(Checkbox1_8.Value,Disabled,Edit)
+                Height: =41
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =HourValue4_8.Width
+                X: =532
+                Y: =36
+                ZIndex: =5
+
+            ErrorMessage14_8 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =12
+                ZIndex: =6
+
+            StarVisible14_8 As label:
+                Align: =Align.Center
+                Height: =DataCardKey15_8.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey15_8.Y
+                ZIndex: =7
+
+        Location_DataCard2_8 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Location"
+            Default: =ThisItem.Location
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Location"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =165
+            MaxLength: =DataSourceInfo([@ITBlackoutCalendar], DataSourceInfo.MaxLength, "Location")
+            Required: =false
+            Update: =DataCardValue12_8.Text
+            Width: =614
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            DataCardKey16_8 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Size: =15
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =14
+                Y: =63
+                ZIndex: =1
+
+            DataCardValue12_8 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =381
+                X: =142
+                Y: =63
+                ZIndex: =2
+
+            ErrorMessage15_8 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue12_8.Y + DataCardValue12_8.Height
+                ZIndex: =3
+
+            StarVisible15_8 As label:
+                Align: =Align.Center
+                Height: =DataCardKey16_8.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey16_8.Y
+                ZIndex: =4
+
+        "'Distribution list_DataCard2_8' As typedDataCard.comboBoxMultiSelectEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Distributionlist"
+            Default: =ThisItem.'Distribution list'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Distribution list"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =141
+            Required: =false
+            Update: =DataCardValue13_8.SelectedItems
+            Width: =614
+            X: =1
+            Y: =1
+            ZIndex: =1
+
+            DataCardKey17_8 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =37
+                Size: =15
+                Text: =Parent.DisplayName
+                Width: =178
+                Wrap: =false
+                X: =30
+                Y: =63
+                ZIndex: =1
+
+            DataCardValue13_8 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["DisplayName","Email","Picture"]
+                DisplayMode: =Parent.DisplayMode
+                IsSearchable: =false
+                Items: =Choices([@ITBlackoutCalendar].'Distribution list')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["DisplayName"]
+                SearchItems: =[]
+                Template: =ListItemTemplate.Person
+                Tooltip: =Parent.DisplayName
+                Width: =381
+                X: =203
+                Y: =63
+                ZIndex: =2
+
+            ErrorMessage16_8 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue13_8.Y + DataCardValue13_8.Height
+                ZIndex: =3
+
+            StarVisible16_8 As label:
+                Align: =Align.Center
+                Height: =DataCardKey17_8.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey17_8.Y
+                ZIndex: =4
+
+        "'Also notify_DataCard2_8' As typedDataCard.comboBoxMultiSelectEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Alsonotify"
+            Default: =ThisItem.'Also notify'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Also notify"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue14_8.SelectedItems
+            Width: =614
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey18_8 As label:
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =37
+                Size: =15
+                Text: =Parent.DisplayName
+                Width: =539
+                Wrap: =false
+                X: =16
+                Y: =24
+                ZIndex: =1
+
+            DataCardValue14_8 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["DisplayName","Email","Picture"]
+                DisplayMode: =Parent.DisplayMode
+                IsSearchable: =false
+                Items: =Choices([@ITBlackoutCalendar].'Also notify')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["DisplayName"]
+                SearchItems: =[]
+                Template: =ListItemTemplate.Person
+                Tooltip: =Parent.DisplayName
+                Width: =381
+                X: =144
+                Y: =21
+                ZIndex: =2
+
+            ErrorMessage17_8 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue14_8.Y + DataCardValue14_8.Height
+                ZIndex: =3
+
+            StarVisible17_8 As label:
+                Align: =Align.Center
+                Height: =DataCardKey18_8.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey18_8.Y
+                ZIndex: =4
+
+        Attachments_DataCard2_8 As typedDataCard.attachmentsEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="{Attachments}"
+            Default: =ThisItem.Attachments
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Attachments"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =148
+            Required: =false
+            Update: =DataCardValue15_8.Attachments
+            Width: =614
+            X: =1
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey19_8 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Size: =15
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =44
+                Y: =28
+                ZIndex: =1
+
+            DataCardValue15_8 As attachments:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =270
+                IsInDataCard: =true
+                Items: =Parent.Default
+                OnAddFile: =Set(Isattached,true)
+                OnRemoveFile: =Set(Isattached,false)
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =380
+                X: =204
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage18_8 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue15_8.Y + DataCardValue15_8.Height
+                ZIndex: =3
+
+            StarVisible18_8 As label:
+                Align: =Align.Center
+                Height: =DataCardKey19_8.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey19_8.Y
+                ZIndex: =4
+
+    Checkbox1_8 As checkbox:
+        Height: =40
+        Text: ="All Day Event"
+        Width: =206
+        X: =976
+        Y: =314
+        ZIndex: =32
+
+    TextInput1_4 As text:
+        Default: =""
+        Height: =119
+        Width: =548
+        X: =144
+        Y: =630
+        ZIndex: =33
+
+    Label1_9 As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Description"
+        X: =17
+        Y: =655
+        ZIndex: =34
+
