@@ -1,8 +1,8 @@
 {
   "FormatVersion": "0.24",
   "Header": {
-    "DocVersion": "1.315",
-    "MinVersionToLoad": "1.313",
+    "DocVersion": "1.316",
+    "MinVersionToLoad": "1.314",
     "MSAppStructureVersion": "2.0"
   },
   "Properties": {
@@ -73,7 +73,7 @@
     "DocumentType": "App",
     "EnableInstrumentation": false,
     "FileID": "a996f904-cbb7-4dc5-b79d-86110479d597",
-    "Id": "91f67b13-8841-4dfc-82b2-22cebba935fa",
+    "Id": "d96f04b7-2dc7-4313-9817-5382a329da4f",
     "InstrumentationKey": "",
     "Name": "Deadlinez+Calendar+2.msapp",
     "OriginatingVersion": "1.314"
@@ -93,24 +93,19 @@
     "Month Grid",
     "Week Grid",
     "Delete Screen",
-    "New Blackout Form",
-    "Edit Blackout Form",
-    "Edit Greyout Form",
-    "Edit IT Form",
-    "New Greyout Form",
-    "New IT Form",
+    "New Task Form",
+    "Edit Task Form",
+    "Edit Deadline Form",
+    "New Deadline Form",
     "New Category Screen",
-    "New Blackout Subject",
-    "New IT Subject",
-    "New Greyout Subject",
-    "Update Blackout Subject",
-    "Update Greyout Subject",
-    "Update IT Subject",
     "Update Category",
+    "New Task Subject",
+    "Update Task Subject",
+    "New Deadline Subject",
+    "Update Deadline Subject",
     "View Category screen",
-    "View Blckout Subject",
-    "View Grey Subject",
-    "View IT Subject",
+    "View Task Subject",
+    "View Deadline Subject",
     "View Events"
   ]
 }

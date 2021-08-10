@@ -1,16 +1,16 @@
-"'View Category screen' As screen":
+"'View Deadline Subject' As screen":
     LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
 
-    Rectangle3 As rectangle:
+    Rectangle3_2 As rectangle:
         BorderColor: =RGBA(32, 54, 71, 1)
         Fill: =RGBA(62, 121, 151, 1)
         Width: =1229
         ZIndex: =1
 
-    "Gallery2 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+    "Gallery2_2 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
         BorderColor: =RGBA(32, 54, 71, 1)
         Height: =570
-        Items: =Category
+        Items: ='Deadline Subject'
         Layout: =Layout.Vertical
         TemplatePadding: =0
         TemplateSize: =Min(160, Self.Height - 60)
@@ -18,7 +18,7 @@
         Y: =198
         ZIndex: =3
 
-        Separator2 As rectangle:
+        Separator2_2 As rectangle:
             BorderColor: =RGBA(32, 54, 71, 1)
             Fill: =RGBA(32, 54, 71, 1)
             Height: =1
@@ -27,46 +27,46 @@
             Y: =Parent.TemplateHeight - 1
             ZIndex: =5
 
-        Label6 As label:
+        Label6_2 As label:
             BorderColor: =RGBA(32, 54, 71, 1)
             Color: =RGBA(0, 0, 0, 1)
             DisabledColor: =RGBA(166, 166, 166, 1)
             Height: =62
             OnSelect: =Select(Parent)
             Size: =13
-            Text: =ThisItem.'Category Name'
-            Width: =332
+            Text: =ThisItem.SubjectName
+            Width: =355
             X: =63
-            Y: =44
+            Y: =51
             ZIndex: =6
 
-        Label7 As label:
+        Label7_2 As label:
             BorderColor: =RGBA(32, 54, 71, 1)
             Color: =RGBA(0, 0, 0, 1)
             DisabledColor: =RGBA(166, 166, 166, 1)
-            Height: =113
+            Height: =127
             OnSelect: =Select(Parent)
             Size: =13
             Text: =ThisItem.Description
-            Width: =571
+            Width: =648
             X: =418
             Y: =19
             ZIndex: =7
 
-        Icon11 As icon.Edit:
+        Icon11_2 As icon.Edit:
             BorderColor: =RGBA(32, 54, 71, 1)
             Color: =RGBA(32, 54, 71, 1)
             DisabledBorderColor: =RGBA(166, 166, 166, 1)
             DisabledColor: =RGBA(244, 244, 244, 1)
             Height: =62
             Icon: =Icon.Edit
-            OnSelect: =Select(Parent);Set(categoryupdate,ThisItem);Navigate('Update Category');
+            OnSelect: =Select(Parent);Set(deadlinesubjectupdate,ThisItem);Navigate('Update Deadline Subject');
             Width: =46
-            X: =1032
+            X: =1092
             Y: =19
             ZIndex: =10
 
-    Rectangle9 As rectangle:
+    Rectangle9_2 As rectangle:
         BorderColor: =RGBA(32, 54, 71, 1)
         Fill: =RGBA(186, 202, 226, 1)
         Height: =102
@@ -74,19 +74,19 @@
         Y: =96
         ZIndex: =7
 
-    Label30 As label:
+    Label30_2 As label:
         BorderColor: =RGBA(32, 54, 71, 1)
         Color: =RGBA(0, 0, 0, 1)
         DisabledColor: =RGBA(166, 166, 166, 1)
         FontWeight: =FontWeight.Semibold
         Size: =20
-        Text: ="Category"
+        Text: ="Subject"
         Width: =282
-        X: =57
+        X: =56
         Y: =135
         ZIndex: =8
 
-    Label31 As label:
+    Label31_2 As label:
         BorderColor: =RGBA(32, 54, 71, 1)
         Color: =RGBA(0, 0, 0, 1)
         DisabledColor: =RGBA(166, 166, 166, 1)
@@ -96,10 +96,21 @@
         Text: ="Description"
         Width: =210
         X: =411
-        Y: =137
+        Y: =135
         ZIndex: =9
 
-    Button8 As button:
+    Icon15 As icon.CancelBadge:
+        BorderColor: =RGBA(32, 54, 71, 1)
+        Color: =RGBA(32, 54, 71, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Icon: =Icon.CancelBadge
+        OnSelect: =Navigate('Week Grid');
+        X: =1135
+        Y: =12
+        ZIndex: =10
+
+    Button11 As button:
         DisabledBorderColor: =RGBA(166, 166, 166, 1)
         DisabledColor: =RGBA(166, 166, 166, 1)
         DisabledFill: =RGBA(244, 244, 244, 1)
@@ -107,21 +118,11 @@
         FontWeight: =FontWeight.Semibold
         HoverColor: =RGBA(255, 255, 255, 1)
         HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-        OnSelect: =Navigate('New Category Screen');
+        OnSelect: =Navigate('New Deadline Subject');
         Size: =15
-        Text: ="New Category"
-        X: =19
+        Text: ="New Deadline Subject"
+        Width: =222
+        X: =15
         Y: =30
-        ZIndex: =10
-
-    Icon14 As icon.CancelBadge:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        Color: =RGBA(32, 54, 71, 1)
-        DisabledBorderColor: =RGBA(166, 166, 166, 1)
-        DisabledColor: =RGBA(244, 244, 244, 1)
-        Icon: =Icon.CancelBadge
-        OnSelect: =Navigate('Week Grid');
-        X: =1149
-        Y: =18
         ZIndex: =11
 

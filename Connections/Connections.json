@@ -15,6 +15,15 @@
     "datasets": {
       "https://maargasystems007.sharepoint.com/sites/ZurichCalendarClassical": {
         "dataSources": {
+          "Category": {
+            "tableName": "b0bcf188-c2aa-4603-b443-469ffb26731b"
+          },
+          "Deadline Subject": {
+            "tableName": "23639cd3-5c7a-4320-bcae-8885cc509495"
+          },
+          "Task subject": {
+            "tableName": "c4fe2504-2fb4-4a72-9919-86daa9f9ca2a"
+          },
           "TestCalendar": {
             "tableName": "b23c8fa8-a359-497d-9ea4-8b09d460a231"
           }
@@ -22,7 +31,10 @@
       }
     },
     "dataSources": [
-      "TestCalendar"
+      "TestCalendar",
+      "Task subject",
+      "Deadline Subject",
+      "Category"
     ],
     "dependencies": {},
     "dependents": [],

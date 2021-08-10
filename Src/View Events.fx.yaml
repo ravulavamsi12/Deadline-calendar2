@@ -1,28 +1,53 @@
 "'View Events' As screen":
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
 
     Rectangle7 As rectangle:
+        BorderColor: =RGBA(32, 54, 71, 1)
+        Fill: =RGBA(62, 121, 151, 1)
         Height: =97
         Width: =1229
         ZIndex: =1
 
     Label11 As label:
         Align: =Align.Center
+        BorderColor: =RGBA(32, 54, 71, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
         FontWeight: =FontWeight.Semibold
-        Height: =46
+        Height: =55
         Size: =30
-        Text: ="View Events"
-        Width: =254
-        X: =487
-        Y: =25
+        Text: ="Tasks and Deadlines"
+        Width: =492
+        X: =379
+        Y: =21
         ZIndex: =2
 
     Dropdown2 As dropdown:
-        Items: =["Select Event","My BlackoutEvent","My GreyoutEvent","My ITEvent"]
-        X: =858
-        Y: =132
+        BorderColor: =RGBA(32, 54, 71, 1)
+        ChevronBackground: =RGBA(100, 118, 132, 1)
+        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(205, 209, 213, 1)
+        Items: =["Select Event","My Tasks","My Deadlines","My Tasks and Deadlines"]
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(32, 54, 71, 1)
+        SelectionFill: =RGBA(100, 118, 132, 1)
+        Size: =13
+        X: =528
+        Y: =118
         ZIndex: =4
 
     Icon7 As icon.CancelBadge:
+        BorderColor: =RGBA(32, 54, 71, 1)
+        Color: =RGBA(32, 54, 71, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
         Icon: =Icon.CancelBadge
         OnSelect: =Navigate('Month Grid');
         X: =1148
@@ -30,9 +55,10 @@
         ZIndex: =5
 
     "Gallery7 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(32, 54, 71, 1)
         BorderThickness: =1
         Height: =561
-        Items: =If(Dropdown2.Selected.Value="Select Event",Filter(ITBlackoutCalendar,Text(_Datedetails,ShortDate)=Text('End Time',ShortDate)),Filter(ITBlackoutCalendar,Dropdown2.Selected.Value='Event Type',Text(_Datedetails,ShortDate)=Text('End Time',ShortDate),_Currentuser.Email=User().Email))
+        Items: =If(Dropdown2.Selected.Value="Select Event" And Dropdown1.Selected.Value="Select FunctionalArea",Filter(TestCalendar,Text('End Date',ShortDate) = Text(_Datedetails,ShortDate)),Filter(TestCalendar,Dropdown2.Selected.Value='Event Type' Or Dropdown1.Selected.Value=FunctionalArea Or Dropdown2.Selected.Value="My Tasks and Deadlines", Text('End Date',ShortDate) = Text(_Datedetails,ShortDate),_Currentuser.Email=User().Email))
         Layout: =Layout.Vertical
         TemplatePadding: =0
         TemplateSize: =Min(160, Self.Height - 60)
@@ -41,6 +67,9 @@
         ZIndex: =6
 
         Image2 As image:
+            BorderColor: =RGBA(32, 54, 71, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
             Height: =128
             OnSelect: =Select(Parent)
             Visible: =false
@@ -50,6 +79,8 @@
             ZIndex: =1
 
         Separator3 As rectangle:
+            BorderColor: =RGBA(32, 54, 71, 1)
+            Fill: =RGBA(32, 54, 71, 1)
             Height: =1
             OnSelect: =Select(Parent)
             Width: =Parent.TemplateWidth
@@ -57,9 +88,13 @@
             ZIndex: =5
 
         Label23 As label:
+            BorderColor: =RGBA(32, 54, 71, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
             FontWeight: =FontWeight.Semibold
             Height: =31
             OnSelect: =Select(Parent)
+            Size: =13
             Text: |-
                 ="Subject :"&" "&ThisItem.SubjectName
             Width: =489
@@ -67,43 +102,80 @@
             Y: =16
             ZIndex: =6
 
-        Label26 As label:
-            FontWeight: =FontWeight.Semibold
-            OnSelect: =Select(Parent)
-            Text: |-
-                ="Event Type :"&" "&ThisItem.'Blackout or Greyout or IT Event'
-            Width: =247
-            X: =35
-            Y: =87
-            ZIndex: =7
-
         Icon10 As icon.Edit:
+            BorderColor: =RGBA(32, 54, 71, 1)
+            Color: =RGBA(32, 54, 71, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
             Height: =55
             Icon: =Icon.Edit
             OnSelect: |-
                 =Select(Parent);Set(itemtoupdate,ThisItem);
-                If(ThisItem.'Blackout or Greyout or IT Event'="Blackout Event",Navigate('Edit Blackout Form'),If(ThisItem.'Blackout or Greyout or IT Event'="Greyout Event",Navigate('Edit Greyout Form'),If(ThisItem.'Blackout or Greyout or IT Event'="IT Event",Navigate('Edit IT Form'),false)))
+                If(ThisItem.'Task or Deadline'="Task",Navigate('Edit Task Form'),If(ThisItem.'Task or Deadline'="Deadline",Navigate('Edit Deadline Form'),false));
             Width: =45
             X: =836
             Y: =32
             ZIndex: =8
 
         Icon20 As icon.Trash:
+            BorderColor: =RGBA(32, 54, 71, 1)
+            Color: =RGBA(32, 54, 71, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
             Height: =55
             Icon: =Icon.Trash
-            OnSelect: =Select(Parent)
+            OnSelect: =Select(Parent);Remove(TestCalendar,ThisItem);Navigate('Delete Screen');
             Width: =45
             X: =939
             Y: =32
             ZIndex: =9
 
         Label27 As label:
+            BorderColor: =RGBA(32, 54, 71, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
             FontWeight: =FontWeight.Semibold
             OnSelect: =Select(Parent)
+            Size: =13
             Text: |-
                 ="Category :"&" "&ThisItem.Category
-            Width: =201
+            Width: =315
             X: =35
             Y: =47
             ZIndex: =10
+
+        Label27_1 As label:
+            BorderColor: =RGBA(32, 54, 71, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Semibold
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: |-
+                ="Event Type :"&" "&ThisItem.'Event Type'
+            Width: =271
+            X: =35
+            Y: =87
+            ZIndex: =11
+
+    Dropdown1 As dropdown:
+        BorderColor: =RGBA(32, 54, 71, 1)
+        ChevronBackground: =RGBA(100, 118, 132, 1)
+        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(205, 209, 213, 1)
+        Items: =["Select FunctionalArea","Accounting","HR","IT","Compliance/Risk","Hudson","Underwriting/Actuaraial"]
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(32, 54, 71, 1)
+        SelectionFill: =RGBA(100, 118, 132, 1)
+        Size: =13
+        X: =884
+        Y: =118
+        ZIndex: =7
 

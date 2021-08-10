@@ -2,11 +2,10 @@ App As appinfo:
     BackEnabled: =false
     OnStart: |+
         =Set(_Currentuser,User()); Set(_Currentdate,Today());
-        ClearCollect(colsub,'Blackout Subject'.SubjectName);
-        ClearCollect(colcategory,'Blackout Category'.CategoryName);
-        ClearCollect(Greyoutcollection,'Greyout Subject'.SubjectName);
-        ClearCollect(ITcollection,'IT Subject'.SubjectName);
-        ClearCollect(Menuitems,'Expand and collapse Menu');
+        ClearCollect(Tasksub,'Task subject'.'Subject Name');
+        ClearCollect(categorylist,Category.CategoryName);
+        ClearCollect(Deadlinesub,'Deadline Subject'.SubjectName);
+        
         
         
         
