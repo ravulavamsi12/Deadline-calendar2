@@ -1,6 +1,27 @@
 {
-  "148c299b-0925-4a73-82ee-7ae8e0dcfcb3": {
-    "connectionInstanceId": "/providers/microsoft.powerapps/apis/shared_sharepointonline/connections/09eb5e817d0b4747b364cc53c724db59",
+  "9422327d-c6f4-4f03-a171-6cd49a1a1790": {
+    "connectionInstanceId": "/providers/microsoft.powerapps/apis/shared_office365/connections/17f64d2e7eb6412e8b800b35eec9f8bf",
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1503/1.0.1503.2513/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "9422327d-c6f4-4f03-a171-6cd49a1a1790"
+  },
+  "956dbb12-a9e8-49eb-b9a9-fdc304cb9562": {
+    "connectionInstanceId": "/providers/microsoft.powerapps/apis/shared_sharepointonline/connections/ac5c07042f4749078af3dff3698aceb3",
     "connectionParameters": {
       "sku": "Enterprise"
     },
@@ -32,33 +53,12 @@
     },
     "dataSources": [
       "TestCalendar",
+      "Category",
       "Task subject",
-      "Deadline Subject",
-      "Category"
+      "Deadline Subject"
     ],
     "dependencies": {},
     "dependents": [],
-    "id": "148c299b-0925-4a73-82ee-7ae8e0dcfcb3"
-  },
-  "9422327d-c6f4-4f03-a171-6cd49a1a1790": {
-    "connectionInstanceId": "/providers/microsoft.powerapps/apis/shared_office365/connections/shared-office365-57ffa11d-8b4a-4cc7-b756-5de6-c3bd75c0",
-    "connectionParameters": {
-      "sku": "Enterprise"
-    },
-    "connectionRef": {
-      "apiTier": "Standard",
-      "displayName": "Office 365 Outlook",
-      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1503/1.0.1503.2513/office365/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_office365",
-      "parameterHints": {},
-      "parameterHintsV2": {}
-    },
-    "datasets": {},
-    "dataSources": [
-      "Office365Outlook"
-    ],
-    "dependencies": {},
-    "dependents": [],
-    "id": "9422327d-c6f4-4f03-a171-6cd49a1a1790"
+    "id": "956dbb12-a9e8-49eb-b9a9-fdc304cb9562"
   }
 }

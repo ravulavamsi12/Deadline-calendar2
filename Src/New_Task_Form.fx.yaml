@@ -1,137 +1,100 @@
-"'New Task Form' As screen":
+New_Task_Form As screen:
     ImagePosition: =ImagePosition.Center
-    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
-    OnVisible: |+
-        =ClearCollect(newblackoutsub,{Result:"Select Subject"});
-        Collect(newblackoutsub,Distinct('Blackout Subject',SubjectName));
-        ClearCollect(newblackcategory,{Result:"Select Category"});
-        Collect(newblackcategory,Distinct('Blackout Category','Category Name'));
-        
+    OnVisible: |
+        =ClearCollect(
+            newTasksub,
+            {Result: "Select Subject"}
+        );
+        Collect(
+            newTasksub,
+            Distinct(
+                'Task subject',
+                SubjectName
+            )
+        );
+        ClearCollect(
+            newTaskCategory,
+            {Result: "Select Category"}
+        );
+        Collect(
+            newTaskCategory,
+            Distinct(
+                Category,
+                'Category Name'
+            )
+        );
 
     Rectangle1_4 As rectangle:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        Fill: =RGBA(100, 118, 132, 1)
         Height: =92
         Width: =1228
+        X: =1
         ZIndex: =1
 
     Label1_4 As label:
         Align: =Align.Center
-        BorderColor: =RGBA(32, 54, 71, 1)
-        Color: =RGBA(0, 0, 0, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
+        Color: =RGBA(255, 255, 255, 1)
         FontWeight: =FontWeight.Bold
         Height: =48
         Size: =30
-        Text: ="New Blackout Date"
+        Text: ="New Task"
         Width: =498
-        X: =382
+        X: =349
         Y: =22
         ZIndex: =2
 
     Dropdown12_4 As dropdown:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        ChevronBackground: =RGBA(100, 118, 132, 1)
-        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-        ChevronHoverFill: =RGBA(255, 255, 255, 1)
-        Default: =
-        DisabledBorderColor: =RGBA(166, 166, 166, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
-        DisabledFill: =RGBA(244, 244, 244, 1)
-        HoverColor: =RGBA(0, 0, 0, 1)
-        HoverFill: =RGBA(205, 209, 213, 1)
-        Items: =newblackoutsub
-        PressedColor: =RGBA(255, 255, 255, 1)
-        PressedFill: =RGBA(32, 54, 71, 1)
-        SelectionFill: =RGBA(100, 118, 132, 1)
-        Size: =13
+        Default: ="--Select Subject--"
+        Items: =If(Dropdown1.Selected.Value="Accounting",["Select Subject",LookUp('Task subject',FunctionalArea.Value="Accounting",'Subject Name')],Dropdown1.Selected.Value="HR",["Select Subject",LookUp('Task subject',FunctionalArea.Value="HR",'Subject Name')],Dropdown1.Selected.Value="Hudson",["Select Subject",LookUp('Task subject',FunctionalArea.Value="Hudson",'Subject Name')],Dropdown1.Selected.Value="IT",["Select Subject",LookUp('Task subject',FunctionalArea.Value="IT",'Subject Name')],Dropdown1.Selected.Value="Compliance/Risk",["Select Subject",LookUp('Task subject',FunctionalArea.Value="Compliance/Risk",'Subject Name')],Dropdown1.Selected.Value="Underwriting/Actuarial",["Select Subject",LookUp('Task subject',FunctionalArea.Value="Underwriting/Actuarial",'Subject Name')])
         Width: =238
         X: =144
         Y: =147
         ZIndex: =4
 
     Label5_4 As label:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        Color: =RGBA(0, 0, 0, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
         FontWeight: =FontWeight.Semibold
         Size: =15
         Text: ="Subject"
-        X: =27
+        X: =17
         Y: =147
         ZIndex: =5
 
     Button8_7 As button:
-        DisabledBorderColor: =RGBA(166, 166, 166, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
-        DisabledFill: =RGBA(244, 244, 244, 1)
-        Fill: =RGBA(168, 0, 0, 1)
-        FontWeight: =FontWeight.Semibold
-        HoverColor: =RGBA(255, 255, 255, 1)
-        HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+        Fill: =RGBA(255, 0, 0, 1)
         OnSelect: |-
-            =If(Dropdown12_4.Selected.Result="Select Subject", Notify("Please Select Subject",Error),If(Dropdown1_4.Selected.Result="Select Category",Notify("Please Select Category",Error),If(IsBlank(DateValue4_4),Notify("Please Select End Date",Error),If(IsBlank(DataCardValue12_4),Notify("Please Enter Location",Error),If(IsBlank(DataCardValue13_4),Notify("Please Enter Distribution list",Error),If(CountRows(DataCardValue15_4.Attachments)<1,Notify("Please Attach document",Error),Patch(ITBlackoutCalendar,Defaults(ITBlackoutCalendar),{SubjectName:Dropdown12_4.Selected.Result,Category:Dropdown1_4.Selected.Result,'Blackout or Greyout or IT Event':"Blackout Event",Description:TextInput1.Text},Form1_4.Updates);ResetForm(Form1_4);Reset(Dropdown1_4);Reset(Dropdown12_4);Reset(TextInput1);Navigate('Month Grid')))))));
-        Size: =15
+            =If(Dropdown12_4.Selected.Value="Select Subject", Notify("Please Select Subject",Error),If(Dropdown1_4.Selected.Value="Select Category",Notify("Please Select Category",Error),If(IsBlank(DateValue3),Notify("Please Select End Date",Error),If(IsBlank(DataCardValue12_4),Notify("Please Enter Location",Error),If(IsBlank(DataCardValue13_4),Notify("Please Enter Distribution list",Error),If(CountRows(DataCardValue15_4.Attachments)<1,Notify("Please Attach document",Error),If(IsBlank(DataCardValue14_4),Notify("Please Enter Also Nofity Field",Error),If(IsBlank(TextInput1),Notify("Please Enter Description",Error),Patch(TestCalendar,Defaults(TestCalendar),{SubjectName:Dropdown12_4.Selected.Value,Category:Dropdown1_4.Selected.Value,MailSent:"Yes",FunctionalArea:Dropdown1.Selected.Value,Description:TextInput1.Text},Form1_4.Updates);ResetForm(Form1_4);Reset(Dropdown1_4);Reset(Dropdown12_4);Reset(TextInput1);Navigate('Delete Screen')))))))));
         Text: ="Save and Send"
         X: =17
         Y: =30
         ZIndex: =8
 
     Label3_4 As label:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        Color: =RGBA(0, 0, 0, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
         FontWeight: =FontWeight.Semibold
         Size: =15
         Text: ="Category"
-        X: =666
+        X: =868
         Y: =147
         ZIndex: =13
 
     Dropdown1_4 As dropdown:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        ChevronBackground: =RGBA(100, 118, 132, 1)
-        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-        ChevronHoverFill: =RGBA(255, 255, 255, 1)
         Default: =
-        DisabledBorderColor: =RGBA(166, 166, 166, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
-        DisabledFill: =RGBA(244, 244, 244, 1)
-        HoverColor: =RGBA(0, 0, 0, 1)
-        HoverFill: =RGBA(205, 209, 213, 1)
-        Items: =newblackcategory
-        PressedColor: =RGBA(255, 255, 255, 1)
-        PressedFill: =RGBA(32, 54, 71, 1)
-        SelectionFill: =RGBA(100, 118, 132, 1)
-        Size: =13
+        Items: |
+            =If(Dropdown1.Selected.Value="Accounting",["Select Category",LookUp(Category,FunctionalArea.Value="Accounting",'Category Name')],Dropdown1.Selected.Value="HR",["Select Category",LookUp(Category,FunctionalArea.Value="HR",'Category Name')],Dropdown1.Selected.Value="Hudson",["Select Category",LookUp(Category,FunctionalArea.Value="Hudson",'Category Name')],Dropdown1.Selected.Value="IT",["Select Category",LookUp(Category,FunctionalArea.Value="IT",'Category Name')],Dropdown1.Selected.Value="Compliance/Risk",["Select Category",LookUp(Category,FunctionalArea.Value="Compliance/Risk",'Category Name')],Dropdown1.Selected.Value="Underwriting/Actuarial",["Select Category",LookUp(Category,FunctionalArea.Value="Underwriting/Actuarial",'Category Name')])
         Width: =238
-        X: =816
+        X: =976
         Y: =147
         ZIndex: =14
 
     Button8_8 As button:
-        DisabledBorderColor: =RGBA(166, 166, 166, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
-        DisabledFill: =RGBA(244, 244, 244, 1)
-        Fill: =RGBA(168, 0, 0, 1)
-        FontWeight: =FontWeight.Semibold
-        HoverColor: =RGBA(255, 255, 255, 1)
-        HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+        Fill: =RGBA(141, 198, 63, 1)
         OnSelect: |-
-            =If(Dropdown12_4.Selected.Result="Select Subject", Notify("Please Select Subject",Error),If(Dropdown1_4.Selected.Result="Select Category",Notify("Please Select Category",Error),If(IsBlank(DateValue4_4),Notify("Please Select End Date",Error),If(IsBlank(DataCardValue12_4),Notify("Please Enter Location",Error),If(IsBlank(DataCardValue13_4),Notify("Please Enter Distribution list",Error),If(CountRows(DataCardValue15_4.Attachments)<1,Notify("Please Attach document",Error),Patch(ITBlackoutCalendar,Defaults(ITBlackoutCalendar),{SubjectName:Dropdown12_4.Selected.Result,Category:Dropdown1_4.Selected.Result,'Blackout or Greyout or IT Event':"Blackout Event",Description:TextInput1.Text},Form1_4.Updates);ResetForm(Form1_4);Reset(Dropdown1_4);Reset(Dropdown12_4);Reset(TextInput1);Navigate('Month Grid')))))));
-        Size: =15
+            =If(Dropdown12_4.Selected.Value="Select Subject", Notify("Please Select Subject",Error),If(Dropdown1_4.Selected.Value="Select Category",Notify("Please Select Category",Error),If(IsBlank(DateValue3),Notify("Please Select End Date",Error),If(IsBlank(DataCardValue12_4),Notify("Please Enter Location",Error),If(IsBlank(DataCardValue13_4),Notify("Please Enter Distribution list",Error),If(IsBlank(DataCardValue14_4),Notify("Please Enter Also Nofity Field",Error),If(IsBlank(TextInput1),Notify("Please Enter Description",Error),If(CountRows(DataCardValue15_4.Attachments)<1,Notify("Please Attach document",Error),Patch(TestCalendar,Defaults(TestCalendar),{SubjectName:Dropdown12_4.Selected.Value,Category:Dropdown1_4.Selected.Value,MailSent:"No",FunctionalArea:Dropdown1.Selected.Value,Description:TextInput1.Text,'Task or Deadline':"Task"},Form1_4.Updates);ResetForm(Form1_4);Reset(Dropdown1_4);Reset(Dropdown12_4);Reset(TextInput1);Navigate('Delete Screen')))))))));
         Text: ="Save "
         X: =189
         Y: =30
         ZIndex: =30
 
     Form1_4 As form:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        DataSource: =ITBlackoutCalendar
+        DataSource: =TestCalendar
         DefaultMode: =FormMode.New
         Height: =553
         NumberOfColumns: =2
@@ -140,16 +103,15 @@
         ZIndex: =31
 
         "'Start Time_DataCard2_4' As typedDataCard.dateTimeEditCard":
-            BorderColor: =RGBA(32, 54, 71, 1)
             BorderStyle: =BorderStyle.Solid
             DataField: ="StartTime"
-            Default: =ThisItem.'Start Time'
+            Default: =ThisItem.'Start Date'
             DisplayMode: =Parent.DisplayMode
             DisplayName: ="Start Time"
             Fill: =RGBA(0, 0, 0, 0)
             Height: =77
             Required: =false
-            Update: |+
+            Update: |
                 =DateValue3_4.SelectedDate + Time(Value(HourValue3_4.Selected.Value), Value(MinuteValue3_4.Selected.Value), 0)
                 
                 
@@ -163,7 +125,6 @@
             DataCardKey14_4 As label:
                 AutoHeight: =true
                 Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Semibold
                 Height: =34
                 Size: =15
@@ -176,68 +137,44 @@
 
             DateValue3_4 As datepicker:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                CalendarHeaderFill: =RGBA(100, 118, 132, 1)
-                Color: =RGBA(0, 0, 0, 1)
                 DefaultDate: =
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
                 DisplayMode: =Parent.DisplayMode
                 EndYear: =Year(Today())+100
-                HoverDateFill: =RGBA(205, 209, 213, 1)
-                IconBackground: =RGBA(100, 118, 132, 1)
                 IsEditable: =true
                 PaddingBottom: =0
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                SelectedDateFill: =RGBA(100, 118, 132, 1)
                 StartYear: =1899
                 Tooltip: =Parent.DisplayName
                 Width: =238
-                X: =143
+                X: =154
                 Y: =47
                 ZIndex: =2
 
             HourValue3_4 As dropdown:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                ChevronBackground: =RGBA(100, 118, 132, 1)
-                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-                ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-                ChevronHoverFill: =RGBA(255, 255, 255, 1)
-                Default: =Text(Hour(Parent.Default),"00")
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
+                Default: |-
+                    =/*Text(Hour(Parent.Default),"00")*/
+                    If(Checkbox1_4.Value=true,"00")
                 DisplayMode: =If(Checkbox1_4.Value,Disabled,Edit)
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
                 Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
                 PaddingBottom: =5
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
                 PaddingRight: =5
                 PaddingTop: =5
-                PressedColor: =RGBA(255, 255, 255, 1)
-                PressedFill: =RGBA(32, 54, 71, 1)
-                SelectionFill: =RGBA(100, 118, 132, 1)
-                Size: =13
                 Tooltip: =Parent.DisplayName
                 Width: =64
-                X: =406
+                X: =404
                 Y: =47
                 ZIndex: =3
 
             Separator4_4 As label:
                 Align: =Align.Center
-                BorderColor: =RGBA(32, 54, 71, 1)
-                Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Bold
                 Height: =HourValue3_4.Height
                 PaddingBottom: =0
                 PaddingLeft: =0
                 PaddingRight: =0
                 PaddingTop: =0
-                Size: =13
                 Text: |-
                     =":"
                 Width: =10
@@ -248,38 +185,23 @@
 
             MinuteValue3_4 As dropdown:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                ChevronBackground: =RGBA(100, 118, 132, 1)
-                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-                ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-                ChevronHoverFill: =RGBA(255, 255, 255, 1)
-                Default: =Text(Minute(Parent.Default),"00")
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
+                Default: |-
+                    =/*Text(Minute(Parent.Default),"00")*/
+                    If(Checkbox1_4.Value=true,"00")
                 DisplayMode: =If(Checkbox1_4.Value,Disabled,Edit)
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
                 Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
                 PaddingBottom: =5
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
                 PaddingRight: =5
                 PaddingTop: =5
-                PressedColor: =RGBA(255, 255, 255, 1)
-                PressedFill: =RGBA(32, 54, 71, 1)
-                SelectionFill: =RGBA(100, 118, 132, 1)
-                Size: =13
                 Tooltip: =Parent.DisplayName
                 Width: =64
-                X: =480
+                X: =478
                 Y: =47
                 ZIndex: =5
 
             ErrorMessage13_4 As label:
                 AutoHeight: =true
-                Color: =RGBA(168, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                FontWeight: =FontWeight.Semibold
                 Height: =10
                 Live: =Live.Assertive
                 PaddingBottom: =0
@@ -295,10 +217,7 @@
 
             StarVisible13_4 As label:
                 Align: =Align.Center
-                Color: =RGBA(32, 54, 71, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 Height: =DataCardKey14_4.Height
-                Size: =13
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
@@ -306,148 +225,101 @@
                 Y: =DataCardKey14_4.Y
                 ZIndex: =7
 
-        "'End Time_DataCard2_4' As typedDataCard.dateTimeEditCard":
-            BorderColor: =RGBA(32, 54, 71, 1)
+        "'End Date_DataCard3' As typedDataCard.dateTimeEditCard":
             BorderStyle: =BorderStyle.Solid
-            DataField: ="EndTime"
-            Default: =ThisItem.'End Time'
+            DataField: ="DateScheduled"
+            Default: =ThisItem.'End Date'
             DisplayMode: =Parent.DisplayMode
-            DisplayName: ="End Time"
+            DisplayName: ="End Date"
             Fill: =RGBA(0, 0, 0, 0)
-            Height: =50
+            Height: =100
             Required: =false
-            Update: |+
-                =DateValue4_4.SelectedDate + Time(Value(HourValue4_4.Selected.Value), Value(MinuteValue4_4.Selected.Value), 0)
-                
-                
-                
-                
+            Update: =DateValue3.SelectedDate + Time(Value(HourValue3.Selected.Value), Value(MinuteValue3.Selected.Value), 0)
             Width: =614
             X: =1
             Y: =0
             ZIndex: =1
 
-            DataCardKey15_4 As label:
+            DataCardKey9 As label:
                 Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Semibold
-                Height: =37
+                Height: =34
                 Size: =15
                 Text: =Parent.DisplayName
-                Width: =538
+                Width: =109
                 Wrap: =false
-                X: =51
-                Y: =40
+                X: =12
+                Y: =47
                 ZIndex: =1
 
-            DateValue4_4 As datepicker:
+            DateValue3 As datepicker:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                CalendarHeaderFill: =RGBA(100, 118, 132, 1)
-                Color: =RGBA(0, 0, 0, 1)
-                DefaultDate: =
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
+                DefaultDate: =Parent.Default
                 DisplayMode: =Parent.DisplayMode
                 EndYear: =Year(Today())+100
-                HoverDateFill: =RGBA(205, 209, 213, 1)
-                IconBackground: =RGBA(100, 118, 132, 1)
                 IsEditable: =true
                 PaddingBottom: =0
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                SelectedDateFill: =RGBA(100, 118, 132, 1)
                 StartYear: =1899
                 Tooltip: =Parent.DisplayName
-                Width: =238
-                X: =201
-                Y: =38
+                Width: =(Parent.Width - 60) / 2
+                X: =121
+                Y: =44
                 ZIndex: =2
 
-            HourValue4_4 As dropdown:
+            HourValue3 As dropdown:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                ChevronBackground: =RGBA(100, 118, 132, 1)
-                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-                ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-                ChevronHoverFill: =RGBA(255, 255, 255, 1)
-                Default: =Text(Hour(Parent.Default),"00")
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
+                Default: |-
+                    =/*Text(Hour(Parent.Default),"00")*/
+                    If(Checkbox1_4.Value=true,"00")
                 DisplayMode: =If(Checkbox1_4.Value,Disabled,Edit)
-                Height: =DateValue4_4.Height
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
                 Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
                 PaddingBottom: =5
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
                 PaddingRight: =5
                 PaddingTop: =5
-                PressedColor: =RGBA(255, 255, 255, 1)
-                PressedFill: =RGBA(32, 54, 71, 1)
-                SelectionFill: =RGBA(100, 118, 132, 1)
-                Size: =13
                 Tooltip: =Parent.DisplayName
                 Width: =64
-                X: =458
-                Y: =37
+                X: =408
+                Y: =44
                 ZIndex: =3
 
-            Separator5_4 As label:
+            Separator5 As label:
                 Align: =Align.Center
-                BorderColor: =RGBA(32, 54, 71, 1)
-                Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Bold
-                Height: =HourValue4_4.Height
+                Height: =HourValue3.Height
                 PaddingBottom: =0
                 PaddingLeft: =0
                 PaddingRight: =0
                 PaddingTop: =0
-                Size: =13
                 Text: |-
                     =":"
                 Width: =10
                 Wrap: =false
-                X: =HourValue4_4.X + HourValue4_4.Width
-                Y: =HourValue4_4.Y
+                X: =HourValue3.X + HourValue3.Width
+                Y: =HourValue3.Y
                 ZIndex: =4
 
-            MinuteValue4_4 As dropdown:
+            MinuteValue3 As dropdown:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                ChevronBackground: =RGBA(100, 118, 132, 1)
-                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-                ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-                ChevronHoverFill: =RGBA(255, 255, 255, 1)
-                Default: =Text(Minute(Parent.Default),"00")
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
+                Default: |-
+                    =/*Text(Minute(Parent.Default),"00")*/
+                    If(Checkbox1_4.Value=true,"00")
                 DisplayMode: =If(Checkbox1_4.Value,Disabled,Edit)
-                Height: =41
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
+                Height: =HourValue3.Height
                 Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
                 PaddingBottom: =5
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
                 PaddingRight: =5
                 PaddingTop: =5
-                PressedColor: =RGBA(255, 255, 255, 1)
-                PressedFill: =RGBA(32, 54, 71, 1)
-                SelectionFill: =RGBA(100, 118, 132, 1)
-                Size: =13
                 Tooltip: =Parent.DisplayName
-                Width: =HourValue4_4.Width
-                X: =532
-                Y: =36
+                Width: =HourValue3.Width
+                X: =HourValue3.X + HourValue3.Width + Separator5.Width
+                Y: =HourValue3.Y
                 ZIndex: =5
 
-            ErrorMessage14_4 As label:
+            ErrorMessage9 As label:
                 AutoHeight: =true
-                Color: =RGBA(168, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                FontWeight: =FontWeight.Semibold
                 Height: =10
                 Live: =Live.Assertive
                 PaddingBottom: =0
@@ -458,24 +330,20 @@
                 Visible: =Parent.DisplayMode=DisplayMode.Edit
                 Width: =Parent.Width - 60
                 X: =30
-                Y: =12
+                Y: =HourValue3.Y + HourValue3.Height
                 ZIndex: =6
 
-            StarVisible14_4 As label:
+            StarVisible9 As label:
                 Align: =Align.Center
-                Color: =RGBA(32, 54, 71, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                Height: =DataCardKey15_4.Height
-                Size: =13
+                Height: =DataCardKey9.Height
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
                 Wrap: =false
-                Y: =DataCardKey15_4.Y
+                Y: =DataCardKey9.Y
                 ZIndex: =7
 
         Location_DataCard2_4 As typedDataCard.textualEditCard:
-            BorderColor: =RGBA(32, 54, 71, 1)
             BorderStyle: =BorderStyle.Solid
             DataField: ="Location"
             Default: =ThisItem.Location
@@ -483,7 +351,7 @@
             DisplayName: ="Location"
             Fill: =RGBA(0, 0, 0, 0)
             Height: =165
-            MaxLength: =DataSourceInfo([@ITBlackoutCalendar], DataSourceInfo.MaxLength, "Location")
+            MaxLength: =DataSourceInfo([@TestCalendar], DataSourceInfo.MaxLength, "Location")
             Required: =false
             Update: =DataCardValue12_4.Text
             Width: =614
@@ -494,38 +362,27 @@
             DataCardKey16_4 As label:
                 AutoHeight: =true
                 Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Semibold
                 Height: =34
                 Size: =15
                 Text: =Parent.DisplayName
                 Width: =Parent.Width - 60
                 Wrap: =false
-                X: =14
+                X: =30
                 Y: =63
                 ZIndex: =1
 
             DataCardValue12_4 As text:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                BorderThickness: =2
-                Color: =RGBA(0, 0, 0, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
                 DisplayMode: =Parent.DisplayMode
-                FocusedBorderThickness: =4
-                HoverBorderColor: =RGBA(32, 54, 71, 1)
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
                 MaxLength: =Parent.MaxLength
                 PaddingLeft: =5
                 RadiusBottomLeft: =0
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
-                Size: =13
                 Tooltip: =Parent.DisplayName
                 Width: =381
                 X: =142
@@ -534,9 +391,6 @@
 
             ErrorMessage15_4 As label:
                 AutoHeight: =true
-                Color: =RGBA(168, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                FontWeight: =FontWeight.Semibold
                 Height: =10
                 Live: =Live.Assertive
                 PaddingBottom: =0
@@ -552,10 +406,7 @@
 
             StarVisible15_4 As label:
                 Align: =Align.Center
-                Color: =RGBA(32, 54, 71, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 Height: =DataCardKey16_4.Height
-                Size: =13
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
@@ -564,10 +415,9 @@
                 ZIndex: =4
 
         "'Distribution list_DataCard2_4' As typedDataCard.comboBoxMultiSelectEditCard":
-            BorderColor: =RGBA(32, 54, 71, 1)
             BorderStyle: =BorderStyle.Solid
             DataField: ="Distributionlist"
-            Default: =ThisItem.'Distribution list'
+            Default: =ThisItem.'Distribution list '
             DisplayMode: =Parent.DisplayMode
             DisplayName: ="Distribution list"
             Fill: =RGBA(0, 0, 0, 0)
@@ -582,41 +432,25 @@
             DataCardKey17_4 As label:
                 AutoHeight: =true
                 Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Semibold
                 Height: =37
                 Size: =15
                 Text: =Parent.DisplayName
                 Width: =178
                 Wrap: =false
-                X: =30
-                Y: =63
+                X: =25
+                Y: =67
                 ZIndex: =1
 
             DataCardValue13_4 As combobox:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                ChevronBackground: =RGBA(100, 118, 132, 1)
-                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-                ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-                ChevronHoverFill: =RGBA(255, 255, 255, 1)
                 DefaultSelectedItems: =Parent.Default
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
                 DisplayFields: =["DisplayName","Email","Picture"]
                 DisplayMode: =Parent.DisplayMode
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
-                IsSearchable: =false
-                Items: =Choices([@ITBlackoutCalendar].'Distribution list')
+                Items: =Choices([@TestCalendar].'Distribution list ')
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                PressedColor: =RGBA(255, 255, 255, 1)
-                PressedFill: =RGBA(32, 54, 71, 1)
-                SearchFields: =["DisplayName"]
-                SearchItems: =[]
-                SelectionFill: =RGBA(100, 118, 132, 1)
-                Size: =13
+                SearchFields: =["DisplayName","Email"]
+                SearchItems: =Choices(TestCalendar.'Distribution list ',DataCardValue13_4.SearchText)
                 Template: =ListItemTemplate.Person
                 Tooltip: =Parent.DisplayName
                 Width: =381
@@ -626,9 +460,6 @@
 
             ErrorMessage16_4 As label:
                 AutoHeight: =true
-                Color: =RGBA(168, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                FontWeight: =FontWeight.Semibold
                 Height: =10
                 Live: =Live.Assertive
                 PaddingBottom: =0
@@ -644,10 +475,7 @@
 
             StarVisible16_4 As label:
                 Align: =Align.Center
-                Color: =RGBA(32, 54, 71, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 Height: =DataCardKey17_4.Height
-                Size: =13
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
@@ -656,7 +484,6 @@
                 ZIndex: =4
 
         "'Also notify_DataCard2_4' As typedDataCard.comboBoxMultiSelectEditCard":
-            BorderColor: =RGBA(32, 54, 71, 1)
             BorderStyle: =BorderStyle.Solid
             DataField: ="Alsonotify"
             Default: =ThisItem.'Also notify'
@@ -673,7 +500,6 @@
 
             DataCardKey18_4 As label:
                 Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Semibold
                 Height: =37
                 Size: =15
@@ -686,28 +512,13 @@
 
             DataCardValue14_4 As combobox:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                ChevronBackground: =RGBA(100, 118, 132, 1)
-                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
-                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
-                ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
-                ChevronHoverFill: =RGBA(255, 255, 255, 1)
                 DefaultSelectedItems: =Parent.Default
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
                 DisplayFields: =["DisplayName","Email","Picture"]
                 DisplayMode: =Parent.DisplayMode
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
-                IsSearchable: =false
-                Items: =Choices([@ITBlackoutCalendar].'Also notify')
+                Items: =Choices([@TestCalendar].'Also notify')
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                PressedColor: =RGBA(255, 255, 255, 1)
-                PressedFill: =RGBA(32, 54, 71, 1)
                 SearchFields: =["DisplayName"]
-                SearchItems: =[]
-                SelectionFill: =RGBA(100, 118, 132, 1)
-                Size: =13
+                SearchItems: =Choices(TestCalendar.'Also notify',DataCardValue14_4.SearchText)
                 Template: =ListItemTemplate.Person
                 Tooltip: =Parent.DisplayName
                 Width: =381
@@ -717,9 +528,6 @@
 
             ErrorMessage17_4 As label:
                 AutoHeight: =true
-                Color: =RGBA(168, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                FontWeight: =FontWeight.Semibold
                 Height: =10
                 Live: =Live.Assertive
                 PaddingBottom: =0
@@ -735,10 +543,7 @@
 
             StarVisible17_4 As label:
                 Align: =Align.Center
-                Color: =RGBA(32, 54, 71, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 Height: =DataCardKey18_4.Height
-                Size: =13
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
@@ -747,7 +552,6 @@
                 ZIndex: =4
 
         Attachments_DataCard2_4 As typedDataCard.attachmentsEditCard:
-            BorderColor: =RGBA(32, 54, 71, 1)
             BorderStyle: =BorderStyle.Solid
             DataField: ="{Attachments}"
             Default: =ThisItem.Attachments
@@ -765,7 +569,6 @@
             DataCardKey19_4 As label:
                 AutoHeight: =true
                 Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 FontWeight: =FontWeight.Semibold
                 Height: =34
                 Size: =15
@@ -778,20 +581,9 @@
 
             DataCardValue15_4 As attachments:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                BorderThickness: =2
-                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                DisabledFill: =RGBA(244, 244, 244, 1)
                 DisplayMode: =Parent.DisplayMode
-                FocusedBorderThickness: =4
                 Height: =270
-                HoverColor: =RGBA(0, 0, 0, 1)
-                HoverFill: =RGBA(205, 209, 213, 1)
                 IsInDataCard: =true
-                ItemColor: =RGBA(255, 255, 255, 1)
-                ItemFill: =RGBA(100, 118, 132, 1)
-                ItemHoverColor: =RGBA(0, 0, 0, 1)
-                ItemHoverFill: =RGBA(205, 209, 213, 1)
                 Items: =Parent.Default
                 OnAddFile: =Set(Isattached,true)
                 OnRemoveFile: =Set(Isattached,false)
@@ -799,19 +591,14 @@
                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
                 PaddingRight: =5
                 PaddingTop: =5
-                PressedColor: =RGBA(255, 255, 255, 1)
-                PressedFill: =RGBA(32, 54, 71, 1)
                 Tooltip: =Parent.DisplayName
                 Width: =380
-                X: =204
-                Y: =10
+                X: =192
+                Y: =4
                 ZIndex: =2
 
             ErrorMessage18_4 As label:
                 AutoHeight: =true
-                Color: =RGBA(168, 0, 0, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
-                FontWeight: =FontWeight.Semibold
                 Height: =10
                 Live: =Live.Assertive
                 PaddingBottom: =0
@@ -827,10 +614,7 @@
 
             StarVisible18_4 As label:
                 Align: =Align.Center
-                Color: =RGBA(32, 54, 71, 1)
-                DisabledColor: =RGBA(166, 166, 166, 1)
                 Height: =DataCardKey19_4.Height
-                Size: =13
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
@@ -839,12 +623,7 @@
                 ZIndex: =4
 
     Checkbox1_4 As checkbox:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        CheckboxBorderColor: =RGBA(32, 54, 71, 1)
-        Color: =RGBA(0, 0, 0, 1)
         Height: =40
-        HoverColor: =RGBA(32, 54, 71, 1)
-        Size: =13
         Text: ="All Day Event"
         Width: =206
         X: =976
@@ -852,32 +631,34 @@
         ZIndex: =32
 
     TextInput1 As text:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        BorderThickness: =2
-        Color: =RGBA(0, 0, 0, 1)
         Default: =""
-        DisabledBorderColor: =RGBA(166, 166, 166, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
-        DisabledFill: =RGBA(244, 244, 244, 1)
-        FocusedBorderThickness: =4
         Height: =119
-        HoverBorderColor: =RGBA(32, 54, 71, 1)
-        HoverColor: =RGBA(0, 0, 0, 1)
-        HoverFill: =RGBA(205, 209, 213, 1)
-        Size: =13
         Width: =548
         X: =144
         Y: =630
         ZIndex: =33
 
     Label1 As label:
-        BorderColor: =RGBA(32, 54, 71, 1)
-        Color: =RGBA(0, 0, 0, 1)
-        DisabledColor: =RGBA(166, 166, 166, 1)
         FontWeight: =FontWeight.Semibold
         Size: =15
         Text: ="Description"
         X: =17
         Y: =655
         ZIndex: =34
+
+    Dropdown1 As dropdown:
+        Items: =["","Accounting","HR","IT","Hudson","Compliance/Risk","Underwriting/Actuarial"]
+        OnSelect: =ClearCollect(NeWTaskValue,'Task subject');
+        Width: =238
+        X: =580
+        Y: =147
+        ZIndex: =35
+
+    Label10 As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Function Area"
+        X: =430
+        Y: =147
+        ZIndex: =36
 

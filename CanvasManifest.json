@@ -73,13 +73,13 @@
     "DocumentType": "App",
     "EnableInstrumentation": false,
     "FileID": "a996f904-cbb7-4dc5-b79d-86110479d597",
-    "Id": "d96f04b7-2dc7-4313-9817-5382a329da4f",
+    "Id": "7d4465c0-28cf-4d8e-a8d7-1dd4aaf5567c",
     "InstrumentationKey": "",
-    "Name": "Deadlinez+Calendar+2.msapp",
+    "Name": "Deadlinez+Calendar.msapp",
     "OriginatingVersion": "1.314"
   },
   "PublishInfo": {
-    "AppName": "Deadlinez Calendar 2",
+    "AppName": "Deadlinez Calendar",
     "BackgroundColor": "rgba(0, 176, 240, 1)",
     "IconColor": "RGBA(255,255,255,1)",
     "IconName": "Edit",
@@ -90,22 +90,14 @@
     "UserLocale": "en-US"
   },
   "ScreenOrder": [
-    "Month Grid",
-    "Week Grid",
     "Delete Screen",
-    "New Task Form",
-    "Edit Task Form",
-    "Edit Deadline Form",
-    "New Deadline Form",
-    "New Category Screen",
+    "New_Task_Form",
+    "Edit_Task_Form",
+    "Edit_Greyout_Form",
+    "New_Deadline_Form",
+    "New Greyout Subject",
+    "Update Greyout Subject",
     "Update Category",
-    "New Task Subject",
-    "Update Task Subject",
-    "New Deadline Subject",
-    "Update Deadline Subject",
-    "View Category screen",
-    "View Task Subject",
-    "View Deadline Subject",
-    "View Events"
+    "View_Events"
   ]
 }

@@ -1,0 +1,115 @@
+View_Events As screen:
+
+    Rectangle7 As rectangle:
+        Height: =97
+        Width: =1229
+        ZIndex: =1
+
+    Label11 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Height: =46
+        Size: =30
+        Text: ="View Events"
+        Width: =254
+        X: =487
+        Y: =25
+        ZIndex: =2
+
+    Dropdown2 As dropdown:
+        Items: =["Select Event","My Tasks","My Deadlines","My Tasks and Deadlines"]
+        X: =530
+        Y: =144
+        ZIndex: =4
+
+    Icon7 As icon.CancelBadge:
+        Icon: =Icon.CancelBadge
+        OnSelect: =Navigate('Month Grid');
+        X: =1148
+        Y: =16
+        ZIndex: =5
+
+    "Gallery7 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderThickness: =1
+        Height: =561
+        Items: =If(Dropdown2.Selected.Value="My Tasks",Filter(TestCalendar,'Task or Deadline'="Task"),Dropdown2.Selected.Value="My Deadlines",Filter(TestCalendar,'Task or Deadline'="Deadline"))
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =Min(160, Self.Height - 60)
+        Width: =1229
+        Y: =206
+        ZIndex: =6
+
+        Image2 As image:
+            Height: =128
+            OnSelect: =Select(Parent)
+            Visible: =false
+            Width: =128
+            X: =16
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =1
+
+        Separator3 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Label23 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =31
+            OnSelect: =Select(Parent)
+            Text: |-
+                ="Subject :"&" "&ThisItem.SubjectName
+            Width: =489
+            X: =35
+            Y: =16
+            ZIndex: =6
+
+        Label26 As label:
+            FontWeight: =FontWeight.Semibold
+            OnSelect: =Select(Parent)
+            Text: |-
+                ="Event Type :"&" "&ThisItem.'Task or Deadline'
+            Width: =247
+            X: =35
+            Y: =87
+            ZIndex: =7
+
+        Icon10 As icon.Edit:
+            Height: =55
+            Icon: =Icon.Edit
+            OnSelect: |-
+                =Select(Parent);Set(itemtoupdate,ThisItem);
+                If(ThisItem.'Task or Deadline'="Task",Navigate(Edit_Task_Form),false);
+            Width: =45
+            X: =836
+            Y: =32
+            ZIndex: =8
+
+        Icon20 As icon.Trash:
+            Height: =55
+            Icon: =Icon.Trash
+            OnSelect: =Select(Parent)
+            Width: =45
+            X: =939
+            Y: =32
+            ZIndex: =9
+
+        Label27 As label:
+            FontWeight: =FontWeight.Semibold
+            OnSelect: =Select(Parent)
+            Text: |-
+                ="Category :"&" "&ThisItem.Category
+            Width: =247
+            X: =35
+            Y: =47
+            ZIndex: =10
+
+    Dropdown3 As dropdown:
+        Items: =["Select FunctionalArea","Accounting","HR","IT","Compliance/Risk","Hudson","Underwriting/Actuaraial"]
+        X: =884
+        Y: =144
+        ZIndex: =7
+

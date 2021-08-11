@@ -1,46 +1,46 @@
-"'Update Category' As screen":
+"'New Greyout Subject' As screen":
 
-    Rectangle1_1 As rectangle:
+    Rectangle1_8 As rectangle:
         Height: =106
         Width: =1229
         ZIndex: =1
 
-    Label3_1 As label:
+    Label3_8 As label:
         FontWeight: =FontWeight.Bold
         Height: =73
         Size: =30
-        Text: ="Update Category"
+        Text: ="Greyout Subject"
         Width: =360
-        X: =459
-        Y: =16
+        X: =451
+        Y: =11
         ZIndex: =2
 
-    Form1_1 As form:
-        DataSource: ='Blackout Category'
+    Form1_8 As form:
+        DataSource: ='Greyout Subject'
+        DefaultMode: =FormMode.New
         Height: =662
-        Item: =categoryupdate
         NumberOfColumns: =1
         Width: =1229
         Y: =106
         ZIndex: =3
 
-        "'Category Name_DataCard2' As typedDataCard.textualEditCard":
+        SubjectName_DataCard2 As typedDataCard.textualEditCard:
             BorderStyle: =BorderStyle.Solid
-            DataField: ="CategoryName"
-            Default: =ThisItem.'Category Name'
+            DataField: ="SubjectName"
+            Default: =ThisItem.SubjectName
             DisplayMode: =Parent.DisplayMode
-            DisplayName: ="Category Name"
+            DisplayName: ="SubjectName"
             Fill: =RGBA(0, 0, 0, 0)
             Height: =50
-            MaxLength: =DataSourceInfo([@'Blackout Category'], DataSourceInfo.MaxLength, "CategoryName")
+            MaxLength: =DataSourceInfo([@'Greyout Subject'], DataSourceInfo.MaxLength, "SubjectName")
             Required: =false
-            Update: =DataCardValue12.Text
+            Update: =DataCardValue6.Text
             Width: =1229
             X: =0
             Y: =0
             ZIndex: =4
 
-            DataCardKey12 As label:
+            DataCardKey6 As label:
                 AutoHeight: =true
                 Height: =34
                 Text: =Parent.DisplayName
@@ -50,7 +50,7 @@
                 Y: =10
                 ZIndex: =1
 
-            DataCardValue12 As text:
+            DataCardValue6 As text:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
                 Default: =Parent.Default
                 DelayOutput: =true
@@ -64,10 +64,10 @@
                 Tooltip: =Parent.DisplayName
                 Width: =915
                 X: =30
-                Y: =DataCardKey12.Y + DataCardKey12.Height + 5
+                Y: =DataCardKey6.Y + DataCardKey6.Height + 5
                 ZIndex: =2
 
-            ErrorMessage12 As label:
+            ErrorMessage6 As label:
                 AutoHeight: =true
                 Height: =10
                 Live: =Live.Assertive
@@ -79,20 +79,20 @@
                 Visible: =Parent.DisplayMode=DisplayMode.Edit
                 Width: =Parent.Width - 60
                 X: =30
-                Y: =DataCardValue12.Y + DataCardValue12.Height
+                Y: =DataCardValue6.Y + DataCardValue6.Height
                 ZIndex: =3
 
-            StarVisible12 As label:
+            StarVisible6 As label:
                 Align: =Align.Center
-                Height: =DataCardKey12.Height
+                Height: =DataCardKey6.Height
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
                 Wrap: =false
-                Y: =DataCardKey12.Y
+                Y: =DataCardKey6.Y
                 ZIndex: =4
 
-        Description_DataCard5 As typedDataCard.textualEditCard:
+        Description_DataCard3 As typedDataCard.textualEditCard:
             BorderStyle: =BorderStyle.Solid
             DataField: ="Description"
             Default: =ThisItem.Description
@@ -100,15 +100,15 @@
             DisplayName: ="Description"
             Fill: =RGBA(0, 0, 0, 0)
             Height: =50
-            MaxLength: =DataSourceInfo([@'Blackout Category'], DataSourceInfo.MaxLength, "Description")
+            MaxLength: =DataSourceInfo([@'Greyout Subject'], DataSourceInfo.MaxLength, "Description")
             Required: =false
-            Update: =DataCardValue13.Text
+            Update: =DataCardValue7.Text
             Width: =1229
             X: =0
             Y: =1
             ZIndex: =4
 
-            DataCardKey13 As label:
+            DataCardKey7 As label:
                 AutoHeight: =true
                 Height: =34
                 Text: =Parent.DisplayName
@@ -118,7 +118,7 @@
                 Y: =10
                 ZIndex: =1
 
-            DataCardValue13 As text:
+            DataCardValue7 As text:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
                 Default: =Parent.Default
                 DelayOutput: =true
@@ -133,10 +133,10 @@
                 Tooltip: =Parent.DisplayName
                 Width: =915
                 X: =30
-                Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                Y: =DataCardKey7.Y + DataCardKey7.Height + 5
                 ZIndex: =2
 
-            ErrorMessage13 As label:
+            ErrorMessage7 As label:
                 AutoHeight: =true
                 Height: =10
                 Live: =Live.Assertive
@@ -148,31 +148,31 @@
                 Visible: =Parent.DisplayMode=DisplayMode.Edit
                 Width: =Parent.Width - 60
                 X: =30
-                Y: =DataCardValue13.Y + DataCardValue13.Height
+                Y: =DataCardValue7.Y + DataCardValue7.Height
                 ZIndex: =3
 
-            StarVisible13 As label:
+            StarVisible7 As label:
                 Align: =Align.Center
-                Height: =DataCardKey13.Height
+                Height: =DataCardKey7.Height
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                 Width: =30
                 Wrap: =false
-                Y: =DataCardKey13.Y
+                Y: =DataCardKey7.Y
                 ZIndex: =4
 
-    Button9_1 As button:
+    Button9_4 As button:
         Fill: =RGBA(168, 0, 0, 1)
         Height: =44
-        OnSelect: =SubmitForm(Form1_1);ResetForm(Form1_1);Navigate('View Category screen');
-        Text: ="Update"
-        X: =33
-        Y: =396
+        OnSelect: =SubmitForm(Form1_8);ResetForm(Form1_8);Navigate('View Grey Subject');
+        Text: ="Submit"
+        X: =30
+        Y: =378
         ZIndex: =4
 
-    Icon1_1 As icon.BackArrow:
+    Icon1_4 As icon.BackArrow:
         Icon: =Icon.BackArrow
-        OnSelect: =Navigate('View Category screen');
+        OnSelect: =Navigate('Month Grid');
         X: =14
         Y: =20
         ZIndex: =5
